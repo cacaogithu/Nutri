@@ -22,12 +22,12 @@
       "phone": "+5511988776655",
       "name": "Maria Teste Escalação",
       "status": "pending_human",
-      "created_at": "2025-10-30T13:39:25.511504",
+      "created_at": "2025-10-30T13:41:49.664506",
       "anamnesis_completed": false,
       "diet_plan_generated": false,
       "needs_human_support": true,
       "escalation_reason": "Escalação manual pelo administrador",
-      "updated_at": "2025-10-30T13:39:25.527932"
+      "updated_at": "2025-10-30T13:41:49.678088"
     }
   },
   "leads": {
@@ -52,11 +52,11 @@
       "name": "Maria Teste Escalação",
       "source": "whatsapp",
       "status": "converted",
-      "created_at": "2025-10-30T13:39:25.501491",
+      "created_at": "2025-10-30T13:41:49.650187",
       "agent": "sales",
       "needs_human_support": true,
       "escalation_reason": "Cliente com dúvidas complexas sobre metodologia",
-      "updated_at": "2025-10-30T13:39:25.504342"
+      "updated_at": "2025-10-30T13:41:49.654475"
     }
   },
   "interactions": [
@@ -122,6 +122,20 @@
       "message": "Preciso de mais informações sobre meu plano",
       "direction": "incoming",
       "timestamp": "2025-10-30T13:39:25.521264"
+    },
+    {
+      "phone": "+5511988776655",
+      "agent": "system",
+      "message": "Olá, tenho mais perguntas",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:41:49.659802"
+    },
+    {
+      "phone": "+5511988776655",
+      "agent": "system",
+      "message": "Preciso de mais informações sobre meu plano",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:41:49.674020"
     }
   ],
   "diet_plans": {},
@@ -142,7 +156,7 @@
       "client_id": "client_+5511988776655",
       "price": 47.0,
       "status": "active",
-      "started_at": "2025-10-30T13:39:25.511512"
+      "started_at": "2025-10-30T13:41:49.664513"
     }
   }
 }
