@@ -14,11 +14,12 @@ st.set_page_config(
 st.title("🥗 Dashboard - Agente de IA Nutricional")
 st.markdown("Sistema de Inteligência Artificial com Agentes de Vendas e Nutrição")
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "📊 Visão Geral", 
     "👥 Clientes", 
     "🔔 Leads",
-    "💬 Interações",
+    "💬 Conversas Completas",
+    "📝 Interações",
     "🧪 Testar Agentes"
 ])
 
@@ -139,7 +140,149 @@ with tab3:
         st.info("Nenhum lead cadastrado ainda.")
 
 with tab4:
-    st.header("💬 Histórico de Interações")
+    st.header("💬 Conversas Completas dos Clientes")
+    
+    st.write("Visualize e gerencie conversas completas com clientes e leads")
+    
+    all_clients = db.get_all_clients()
+    all_leads = db.get_all_leads()
+    
+    all_contacts = []
+    for client in all_clients:
+        all_contacts.append({
+            "phone": client.get("phone"),
+            "name": client.get("name", "Cliente"),
+            "type": "Cliente",
+            "status": client.get("status", ""),
+            "needs_human": client.get("needs_human_support", False)
+        })
+    
+    for lead in all_leads:
+        if lead.get("status") != "converted":
+            all_contacts.append({
+                "phone": lead.get("phone"),
+                "name": lead.get("name", "Lead"),
+                "type": "Lead",
+                "status": lead.get("status", ""),
+                "needs_human": lead.get("needs_human_support", False)
+            })
+    
+    if all_contacts:
+        col1, col2 = st.columns([1, 3])
+        
+        with col1:
+            st.subheader("Contatos")
+            selected_contact = st.selectbox(
+                "Selecione um contato:",
+                options=range(len(all_contacts)),
+                format_func=lambda i: f"{all_contacts[i]['name']} ({all_contacts[i]['type']}) - {all_contacts[i]['phone']}"
+            )
+            
+            if selected_contact is not None:
+                contact = all_contacts[selected_contact]
+                st.write(f"**Tipo:** {contact['type']}")
+                st.write(f"**Status:** {contact['status']}")
+                
+                if contact['needs_human']:
+                    st.warning("⚠️ Escalado para humano")
+                
+                st.divider()
+                
+                st.subheader("Ações")
+                if st.button("🔄 Atualizar Conversas"):
+                    st.rerun()
+                
+                if contact['needs_human']:
+                    if st.button("✅ Resolver Escalação"):
+                        phone = contact['phone']
+                        if contact['type'] == "Cliente":
+                            db.update_client(phone, {
+                                "needs_human_support": False,
+                                "status": "active"
+                            })
+                        else:
+                            db.update_lead(phone, {
+                                "needs_human_support": False,
+                                "status": "active"
+                            })
+                        st.success("Escalação resolvida!")
+                        st.rerun()
+        
+        with col2:
+            if selected_contact is not None:
+                contact = all_contacts[selected_contact]
+                phone = contact['phone']
+                
+                st.subheader(f"Conversa com {contact['name']}")
+                
+                interactions = db.get_client_interactions(phone, limit=100)
+                
+                if interactions:
+                    st.write(f"**Total de mensagens:** {len(interactions)}")
+                    
+                    chat_container = st.container()
+                    with chat_container:
+                        for interaction in reversed(interactions):
+                            timestamp = interaction.get('timestamp', '')
+                            try:
+                                dt = datetime.fromisoformat(timestamp)
+                                time_str = dt.strftime('%d/%m/%Y %H:%M:%S')
+                            except:
+                                time_str = timestamp
+                            
+                            is_incoming = interaction['direction'] == 'incoming'
+                            agent = interaction.get('agent', 'system')
+                            
+                            if is_incoming:
+                                st.markdown(f"**🧑 Cliente** - _{time_str}_")
+                                st.info(interaction['message'])
+                            else:
+                                agent_name = "Vendas" if agent == "sales" else "Nutrição" if agent == "nutrition" else "Sistema"
+                                st.markdown(f"**🤖 Agente {agent_name}** - _{time_str}_")
+                                st.success(interaction['message'])
+                            
+                            st.write("")
+                    
+                    st.divider()
+                    
+                    st.subheader("📤 Enviar Mensagem Manual")
+                    
+                    manual_message = st.text_area(
+                        "Digite sua mensagem:",
+                        key=f"manual_msg_{phone}",
+                        height=100
+                    )
+                    
+                    col_a, col_b = st.columns(2)
+                    
+                    with col_a:
+                        if st.button("Enviar como Administrador", type="primary"):
+                            if manual_message:
+                                from whatsapp_api import whatsapp
+                                from admin_actions import admin
+                                result = admin.send_manual_message(phone, manual_message, agent="admin")
+                                if result.get("success"):
+                                    st.success("✅ Mensagem enviada!")
+                                    st.rerun()
+                                else:
+                                    st.error(f"❌ Erro: {result.get('error')}")
+                            else:
+                                st.warning("Digite uma mensagem primeiro")
+                    
+                    with col_b:
+                        if st.button("Escalar para Humano"):
+                            from admin_actions import admin
+                            result = admin.escalate_to_human(phone, "Escalado manualmente pelo admin")
+                            if result.get("success"):
+                                st.success("✅ Cliente escalado!")
+                                st.rerun()
+                else:
+                    st.info("Nenhuma conversa registrada ainda.")
+    else:
+        st.info("Nenhum contato disponível.")
+
+with tab5:
+    st.header("📝 Histórico de Interações")
     
     interactions = db.get_recent_interactions(limit=50)
     
@@ -163,7 +306,7 @@ with tab4:
     else:
         st.info("Nenhuma interação registrada ainda.")
 
-with tab5:
+with tab6:
     st.header("🧪 Testar Agentes de IA")
     
     st.write("Use esta área para simular conversas com os agentes e testar o sistema.")

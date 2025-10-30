@@ -1,0 +1,139 @@
+{
+  "clients": {
+    "client_+5511900000001": {
+      "phone": "+5511900000001",
+      "name": "Teste DB",
+      "status": "active",
+      "created_at": "2025-10-30T13:44:52.101593",
+      "anamnesis_completed": true,
+      "diet_plan_generated": true,
+      "anamnesis": {
+        "nome": "Teste",
+        "peso": 80,
+        "altura": 175
+      },
+      "anamnesis_date": "2025-10-30T13:44:52.105825",
+      "latest_plan_id": "plan_+5511900000001_20251030_134452"
+    },
+    "client_+5511911111111": {
+      "phone": "+5511911111111",
+      "name": "Lead Teste 1",
+      "status": "active",
+      "created_at": "2025-10-30T13:46:34.714196",
+      "anamnesis_completed": true,
+      "diet_plan_generated": true,
+      "anamnesis": {
+        "nome": "Teste",
+        "peso": 80,
+        "altura": 175
+      },
+      "anamnesis_date": "2025-10-30T13:46:34.719571",
+      "latest_plan_id": "plan_+5511911111111_20251030_134634"
+    }
+  },
+  "leads": {
+    "lead_+5511900000001": {
+      "phone": "+5511900000001",
+      "name": "Teste DB",
+      "source": "whatsapp",
+      "status": "converted",
+      "created_at": "2025-10-30T13:44:52.096187",
+      "agent": "sales",
+      "updated_at": "2025-10-30T13:44:52.099451"
+    },
+    "lead_+5511900000002": {
+      "phone": "+5511900000002",
+      "name": "Novo Lead",
+      "source": "whatsapp",
+      "status": "new",
+      "created_at": "2025-10-30T13:44:52.109216",
+      "agent": "sales"
+    },
+    "lead_+5511911111111": {
+      "phone": "+5511911111111",
+      "name": "Lead Teste 1",
+      "source": "whatsapp",
+      "status": "converted",
+      "created_at": "2025-10-30T13:46:34.691535",
+      "agent": "sales",
+      "updated_at": "2025-10-30T13:46:34.694500"
+    },
+    "lead_+5511922222222": {
+      "phone": "+5511922222222",
+      "name": "Lead Routing",
+      "source": "whatsapp",
+      "status": "new",
+      "created_at": "2025-10-30T13:46:34.724487",
+      "agent": "sales"
+    }
+  },
+  "interactions": [
+    {
+      "phone": "+5511900000001",
+      "agent": "sales",
+      "message": "Mensagem teste",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:44:52.103957"
+    },
+    {
+      "phone": "+5511900000002",
+      "agent": "sales",
+      "message": "Olá",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:44:52.111602"
+    },
+    {
+      "phone": "+5511900000002",
+      "agent": "sales",
+      "message": "Oi! Que bom te ver por aqui 😊 Nosso acompanhamento é 100% personalizado: fazemos uma avaliação completa do seu histórico e objetivos, criamos um plano hiperpersonalizado com alimentos brasileiros (nada de dietas extremas) e damos suporte contínuo com ajustes pelo WhatsApp 24/7.\n\nPor R$ 47/mês você recebe seu plano nutricional completo, acompanhamento personalizado, acesso ao nutricionista IA 24/7 e ajustes ilimitados conforme sua rotina muda.\n\nPra te ajudar do jeito certo, me conta: qual é seu objetivo principal agora — emagrecimento, ganho de massa, mais energia, saúde intestinal ou outro? Se quiser, já começo sua avaliação com 3 perguntas rápidas e a gente monta seu plano 😉",
+      "direction": "outgoing",
+      "timestamp": "2025-10-30T13:45:05.128250"
+    },
+    {
+      "phone": "+5511911111111",
+      "agent": "sales",
+      "message": "Mensagem de teste",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:46:34.716968"
+    },
+    {
+      "phone": "+5511922222222",
+      "agent": "sales",
+      "message": "Teste",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:46:34.728018"
+    }
+  ],
+  "diet_plans": {
+    "plan_+5511900000001_20251030_134452": {
+      "client_id": "client_+5511900000001",
+      "phone": "+5511900000001",
+      "plan": {
+        "plano": "Plano teste"
+      },
+      "created_at": "2025-10-30T13:44:52.107426"
+    },
+    "plan_+5511911111111_20251030_134634": {
+      "client_id": "client_+5511911111111",
+      "phone": "+5511911111111",
+      "plan": {
+        "plano": "Plano teste"
+      },
+      "created_at": "2025-10-30T13:46:34.722335"
+    }
+  },
+  "subscriptions": {
+    "client_+5511900000001": {
+      "client_id": "client_+5511900000001",
+      "price": 47.0,
+      "status": "active",
+      "started_at": "2025-10-30T13:44:52.101598"
+    },
+    "client_+5511911111111": {
+      "client_id": "client_+5511911111111",
+      "price": 47.0,
+      "status": "active",
+      "started_at": "2025-10-30T13:46:34.714210"
+    }
+  }
+}
