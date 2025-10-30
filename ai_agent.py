@@ -10,7 +10,7 @@ def is_rate_limit_error(exception: BaseException) -> bool:
         or "RATELIMIT_EXCEEDED" in error_msg
         or "quota" in error_msg.lower()
         or "rate limit" in error_msg.lower()
-        or (hasattr(exception, "status_code") and exception.status_code == 429)
+        or (hasattr(exception, "status_code") and getattr(exception, "status_code", None) == 429)
     )
 
 # the newest OpenAI model is "gpt-5" which was released August 7, 2025.
