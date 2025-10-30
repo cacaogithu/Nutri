@@ -1,0 +1,185 @@
+[10/13/25, 13:09:58] .kaua: Segue a tabela brasileira nacional de alimentos
+
+https://cfn.org.br/wp-content/uploads/2017/03/taco_4_edicao_ampliada_e_revisada.pdf
+[10/13/25, 13:12:02] .kaua: Questionário de Anamnese Nutricional
+Dados Pessoais
+
+Nome: ____________________________________
+Data de nascimento: __ / __ / _____
+Idade: ________ anos
+Peso: _________kgs
+Sexo: [ ] Masculino [ ] Feminino
+Estado civil: ________________________________
+Profissão: __________________________________
+Telefone: __________________________________
+E-mail: ____________________________________
+Data da consulta: __ / __ / _____
+Histórico de Saúde
+
+Você possui alguma doença diagnosticada?
+[ ] Diabetes
+[ ] Hipertensão
+[ ] Hipotireoidismo
+[ ] Colesterol alto
+[ ] Doenças autoimunes
+[ ] Outras: _____________________________
+
+Faz uso de medicamentos?
+[ ] Não
+[ ] Sim. Quais? ________________________________
+
+Possui alergias ou intolerâncias alimentares?
+[ ] Não
+[ ] Sim. Quais? ______________________________
+
+Já realizou cirurgias?
+[ ] Não
+[ ] Sim. Quais? ______________________________
+
+Possui histórico familiar de doenças?
+[ ] Diabetes
+[ ] Hipertensão
+[ ] Doenças cardíacas
+[ ] Obesidade
+[ ] Câncer
+[ ] Outras: _____________________________
+
+Hábitos Alimentares
+
+Quantas refeições você faz por dia?
+[ ] 1-2 [ ] 3 [ ] 4-5 [ ] 6 ou mais
+
+Costuma pular refeições?
+[ ] Não
+[ ] Sim. Quais? ______________________________
+
+Como é o seu apetite?
+[ ] Baixo
+[ ] Moderado
+[ ] Alto
+[ ] Variável
+
+Costuma consumir lanches entre as refeições?
+[ ] Não
+[ ] Sim. O que geralmente consome? ________________
+
+Tem algum tipo de preferência alimentar?
+[ ] Doces
+[ ] Salgados
+[ ] Frituras
+[ ] Vegetais
+[ ] Carnes
+[ ] Outros: _____________________________
+
+Tem algum alimento que você evita?
+[ ] Não
+[ ] Sim. Quais? ______________________________
+
+Hidratação
+
+Quantos litros de água você bebe por dia?
+[ ] Menos de 1L
+[ ] 1-2L
+[ ] 2-3L
+[ ] Mais de 3L
+
+Costuma consumir outras bebidas?
+[ ] Café
+[ ] Chá
+[ ] Refrigerante
+[ ] Sucos industrializados
+[ ] Bebidas alcoólicas
+[ ] Outros: _____________________________
+
+Suplementação
+
+Você faz uso de suplementos alimentares?
+[ ] Não
+[ ] Sim. Quais? ________________________________
+
+Frequência de uso dos suplementos:
+[ ] Diariamente
+[ ] Algumas vezes por semana
+[ ] Ocasionalmente
+
+Motivo do uso de suplementos:
+[ ] Melhorar desempenho físico
+[ ] Suprir carências nutricionais
+[ ] Emagrecimento
+[ ] Ganho de massa muscular
+[ ] Outros: _____________________________
+
+Atividade Física
+
+Pratica atividade física regularmente?
+[ ] Não
+[ ] Sim. Qual tipo e frequência? ___________________
+
+Tempo médio por sessão de exercício:
+[ ] Menos de 30 min
+[ ] 30-60 min
+[ ] Mais de 1h
+
+Nível de intensidade do exercício:
+[ ] Leve
+[ ] Moderado
+[ ] Intenso
+
+Hábitos de Sono
+
+Quantas horas você dorme por noite?
+[ ] Menos de 5h
+[ ] 5-6h
+[ ] 7-8h
+[ ] Mais de 8h
+
+Como é a qualidade do seu sono?
+[ ] Boa
+[ ] Regular
+[ ] Ruim
+
+Costuma acordar durante a noite?
+[ ] Não
+[ ] Sim. Quantas vezes? _________________________
+
+Estilo de Vida e Bem-Estar
+
+Como você descreveria seu nível de estresse?
+[ ] Baixo
+[ ] Moderado
+[ ] Alto
+
+Costuma fumar?
+[ ] Não
+[ ] Sim. Quantos cigarros por dia? _____________
+
+Consome bebidas alcoólicas com frequência?
+[ ] Não
+[ ] Sim. Quantas vezes por semana? _____________
+
+Objetivos Nutricionais
+
+Qual é o seu principal objetivo ao procurar orientação nutricional?
+[ ] Emagrecimento
+[ ] Ganho de massa muscular
+[ ] Reeducação alimentar
+[ ] Controle de doenças
+[ ] Outros: _____________________________
+
+Algum objetivo a curto prazo?
+
+Algum objetivo a longo prazo?
+
+Avaliação Antropométrica
+
+Peso atual: ________ kg
+Altura: ________ cm
+Índice de Massa Corporal (IMC): (será calculado)
+Circunferência da Cintura: ________ cm
+Circunferência do Quadril: ________ cm
+Circunferência dos Glúteos: ________ cm
+Circunferência do Pescoço: ________ cm
+Circunferência do Braço: ________ cm
+Circunferência da Coxa: ________ cm
+Circunferência da Panturrilha: ________ cm
+[10/13/25, 13:12:03] .kaua: As medidas aqui, elas nao precisam ser exatas, mas precisam seguir um padrao que voce sempre consiga medir sempre o mesmo lugar mais ou menos
