@@ -1,0 +1,106 @@
+{
+  "clients": {
+    "client_+5511987654321": {
+      "phone": "+5511987654321",
+      "name": "Novo Lead",
+      "status": "active",
+      "created_at": "2025-10-30T13:25:41.252259",
+      "anamnesis_completed": false,
+      "diet_plan_generated": false,
+      "agent": "nutrition",
+      "updated_at": "2025-10-30T13:25:41.256717"
+    },
+    "client_+5511999887766": {
+      "phone": "+5511999887766",
+      "name": "João da Silva Teste",
+      "status": "active",
+      "created_at": "2025-10-30T13:26:32.049468",
+      "anamnesis_completed": false,
+      "diet_plan_generated": false
+    }
+  },
+  "leads": {
+    "lead_+5511987654321": {
+      "phone": "+5511987654321",
+      "name": "Novo Lead",
+      "source": "whatsapp",
+      "status": "converted",
+      "created_at": "2025-10-30T13:25:05.808122",
+      "agent": "sales"
+    },
+    "lead_+5511999887766": {
+      "phone": "+5511999887766",
+      "name": "João da Silva Teste",
+      "source": "whatsapp",
+      "status": "converted",
+      "created_at": "2025-10-30T13:26:32.043227",
+      "agent": "sales"
+    }
+  },
+  "interactions": [
+    {
+      "phone": "+5511987654321",
+      "agent": "sales",
+      "message": "Olá! Gostaria de conhecer o serviço de nutrição",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:25:05.809512"
+    },
+    {
+      "phone": "+5511987654321",
+      "agent": "sales",
+      "message": "Olá! Que bom ter você aqui. Nosso serviço de nutrição é 100% personalizado para o seu objetivo e rotina, com acompanhamento próximo e prático pelo WhatsApp 24/7, para você tirar dúvidas e ajustar o plano sempre que precisar.\n\nNossa metodologia une uma avaliação completa (anamnese, histórico de saúde e metas), um plano hiperpersonalizado baseado em alimentos brasileiros (Tabela TACO), respeitando preferências e restrições, e um acompanhamento contínuo com ajustes periódicos. Tudo focado em resultados reais e sustentáveis, sem dietas extremas.\n\nA assinatura é R$ 47/mês e inclui: plano nutricional completo, acompanhamento personalizado, acesso ao nutricionista IA 24/7 e ajustes ilimitados. Para começarmos, me conte seus objetivos (ex.: emagrecimento, ganho de massa, performance, saúde) e se há alguma restrição alimentar ou alimento que você não gosta. Se preferir, já te encaminho para a avaliação inicial.",
+      "direction": "outgoing",
+      "timestamp": "2025-10-30T13:25:30.224073"
+    },
+    {
+      "phone": "+5511987654321",
+      "agent": "sales",
+      "message": "Quanto custa?",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:25:30.500207"
+    },
+    {
+      "phone": "+5511987654321",
+      "agent": "sales",
+      "message": "Claro! A assinatura custa R$ 47/mês. Você recebe um plano nutricional completo e hiperpersonalizado, acompanhamento contínuo com ajustes, e suporte 24/7 pelo WhatsApp com nosso nutricionista IA.\n\nSe quiser, já iniciamos agora: é só confirmar que deseja assinar e eu te encaminho para a avaliação inicial. Se preferir, me conte seu objetivo (emagrecimento, ganho de massa, saúde, performance) e qualquer restrição alimentar para eu já preparar tudo.\n\n✅ Seja bem-vindo(a)! Sua assinatura está ativa. Agora vou te conectar com seu nutricionista personalizado que irá iniciar sua avaliação nutricional completa.",
+      "direction": "outgoing",
+      "timestamp": "2025-10-30T13:25:41.274484"
+    },
+    {
+      "phone": "+5511987654321",
+      "agent": "sales",
+      "message": "Sim, quero assinar!",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:25:41.499908"
+    },
+    {
+      "phone": "+5511999887766",
+      "agent": "sales",
+      "message": "Teste de mensagem",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:26:32.054722"
+    },
+    {
+      "phone": "+5511999887766",
+      "agent": "sales",
+      "message": "Resposta de teste",
+      "direction": "outgoing",
+      "timestamp": "2025-10-30T13:26:32.056061"
+    }
+  ],
+  "diet_plans": {},
+  "subscriptions": {
+    "client_+5511987654321": {
+      "client_id": "client_+5511987654321",
+      "price": 47.0,
+      "status": "active",
+      "started_at": "2025-10-30T13:25:41.252294"
+    },
+    "client_+5511999887766": {
+      "client_id": "client_+5511999887766",
+      "price": 47.0,
+      "status": "active",
+      "started_at": "2025-10-30T13:26:32.049479"
+    }
+  }
+}

@@ -1,7 +1,13 @@
 import os
 
-Z_API_INSTANCE = "3E84D96FA64D02171F6692EB59F3FBA2"
-Z_API_TOKEN = "34D8B9D16CCB6070EF5D38CB"
+Z_API_INSTANCE = os.environ.get("Z_API_INSTANCE", "")
+Z_API_TOKEN = os.environ.get("Z_API_TOKEN", "")
+
+if not Z_API_INSTANCE or not Z_API_TOKEN:
+    raise ValueError(
+        "Z-API credentials not configured. Please set Z_API_INSTANCE and Z_API_TOKEN environment variables."
+    )
+
 Z_API_BASE_URL = f"https://api.z-api.io/instances/{Z_API_INSTANCE}/token/{Z_API_TOKEN}"
 
 SUBSCRIPTION_PRICE = 47.00
