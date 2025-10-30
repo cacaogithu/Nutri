@@ -17,6 +17,17 @@
       "created_at": "2025-10-30T13:26:32.049468",
       "anamnesis_completed": false,
       "diet_plan_generated": false
+    },
+    "client_+5511988776655": {
+      "phone": "+5511988776655",
+      "name": "Maria Teste Escalação",
+      "status": "pending_human",
+      "created_at": "2025-10-30T13:39:25.511504",
+      "anamnesis_completed": false,
+      "diet_plan_generated": false,
+      "needs_human_support": true,
+      "escalation_reason": "Escalação manual pelo administrador",
+      "updated_at": "2025-10-30T13:39:25.527932"
     }
   },
   "leads": {
@@ -35,6 +46,17 @@
       "status": "converted",
       "created_at": "2025-10-30T13:26:32.043227",
       "agent": "sales"
+    },
+    "lead_+5511988776655": {
+      "phone": "+5511988776655",
+      "name": "Maria Teste Escalação",
+      "source": "whatsapp",
+      "status": "converted",
+      "created_at": "2025-10-30T13:39:25.501491",
+      "agent": "sales",
+      "needs_human_support": true,
+      "escalation_reason": "Cliente com dúvidas complexas sobre metodologia",
+      "updated_at": "2025-10-30T13:39:25.504342"
     }
   },
   "interactions": [
@@ -86,6 +108,20 @@
       "message": "Resposta de teste",
       "direction": "outgoing",
       "timestamp": "2025-10-30T13:26:32.056061"
+    },
+    {
+      "phone": "+5511988776655",
+      "agent": "system",
+      "message": "Olá, tenho mais perguntas",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:39:25.508768"
+    },
+    {
+      "phone": "+5511988776655",
+      "agent": "system",
+      "message": "Preciso de mais informações sobre meu plano",
+      "direction": "incoming",
+      "timestamp": "2025-10-30T13:39:25.521264"
     }
   ],
   "diet_plans": {},
@@ -101,6 +137,12 @@
       "price": 47.0,
       "status": "active",
       "started_at": "2025-10-30T13:26:32.049479"
+    },
+    "client_+5511988776655": {
+      "client_id": "client_+5511988776655",
+      "price": 47.0,
+      "status": "active",
+      "started_at": "2025-10-30T13:39:25.511512"
     }
   }
 }

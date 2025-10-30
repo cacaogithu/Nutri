@@ -96,9 +96,13 @@ Sistema completo de inteligência artificial com dois agentes especializados par
 
 ### Configuração Z-API
 
-Instance ID: `3E84D96FA64D02171F6692EB59F3FBA2`
-Token: `34D8B9D16CCB6070EF5D38CB`
+As credenciais Z-API são armazenadas de forma segura como variáveis de ambiente:
+- `Z_API_INSTANCE`: ID da instância Z-API
+- `Z_API_TOKEN`: Token de autenticação Z-API
+
 Base URL: `https://api.z-api.io/instances/{instance}/token/{token}`
+
+**Segurança:** Nunca commite credenciais no código. Use sempre variáveis de ambiente.
 
 ### Modelo de Negócio
 
@@ -109,17 +113,22 @@ Base URL: `https://api.z-api.io/instances/{instance}/token/{token}`
 
 ### Funcionalidades Implementadas
 
-✅ Agente de vendas com IA
-✅ Agente nutricional com IA
+✅ Agente de vendas com IA (GPT-5)
+✅ Agente nutricional com IA (GPT-5)
 ✅ Anamnese completa automatizada
 ✅ Geração de planos alimentares personalizados
-✅ Dashboard administrativo
-✅ Sistema de database
-✅ Integração WhatsApp Z-API
-✅ Webhook para mensagens
+✅ Dashboard administrativo completo
+✅ Sistema de database JSON
+✅ Integração WhatsApp Z-API (segura)
+✅ Webhook para mensagens recebidas
 ✅ Roteamento inteligente de mensagens
-✅ Escalação para atendimento humano
+✅ **Escalação para atendimento humano (completa)**
+  - Agentes detectam casos complexos automaticamente
+  - Roteador previne respostas automáticas após escalação
+  - Motivos de escalação registrados
+  - Administrador pode escalar manualmente
 ✅ Métricas de conversão e receita
+✅ Segurança: Credenciais em variáveis de ambiente
 
 ### Próximas Fases (Futuro)
 

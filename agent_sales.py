@@ -64,6 +64,14 @@ Retorne SEMPRE em formato JSON com:
                     response_text += "\n\n✅ Seja bem-vindo(a)! Sua assinatura está ativa. Agora vou te conectar com seu nutricionista personalizado que irá iniciar sua avaliação nutricional completa."
                     db.update_client(phone, {"agent": "nutrition"})
             
+            elif action == "escalate":
+                db.update_lead(phone, {
+                    "needs_human_support": True,
+                    "escalation_reason": result.get("reason", "Caso complexo identificado pela IA"),
+                    "status": "pending_human"
+                })
+                response_text += "\n\n🔔 Um especialista entrará em contato em breve para melhor atendê-lo."
+            
             db.add_interaction(phone, "sales", response_text, "outgoing")
             
             whatsapp.send_text(phone, response_text)

@@ -44,11 +44,14 @@ Quando todas as informações estiverem completas, gere um plano que inclua:
 IMPORTANTE: Retorne SEMPRE em formato JSON:
 {{
   "response": "sua mensagem ao cliente",
-  "status": "collecting|ready_to_generate|plan_generated|followup",
+  "status": "collecting|ready_to_generate|plan_generated|followup|escalate",
   "next_question": "próxima pergunta ou null",
   "anamnesis_complete": true/false,
-  "should_generate_plan": true/false
+  "should_generate_plan": true/false,
+  "escalate_reason": "motivo da escalação se status=escalate"
 }}
+
+Se o cliente apresentar condições médicas complexas, solicitações que fogem do escopo nutricional, ou casos que exigem atenção especializada presencial, use status: "escalate" e explique o motivo.
 """
     
     def process_message(self, phone: str, message: str) -> dict:
@@ -83,6 +86,23 @@ IMPORTANTE: Retorne SEMPRE em formato JSON:
             status = result.get("status", "collecting")
             should_generate_plan = result.get("should_generate_plan", False)
             anamnesis_complete = result.get("anamnesis_complete", False)
+            
+            if status == "escalate":
+                db.update_client(phone, {
+                    "needs_human_support": True,
+                    "escalation_reason": result.get("escalate_reason", "Caso complexo identificado pelo nutricionista IA"),
+                    "status": "pending_human"
+                })
+                response_text += "\n\n🔔 Seu caso será encaminhado para um nutricionista especializado que entrará em contato em breve para um atendimento mais detalhado."
+                db.add_interaction(phone, "nutrition", response_text, "outgoing")
+                whatsapp.send_text(phone, response_text)
+                
+                return {
+                    "success": True,
+                    "response": response_text,
+                    "status": "escalated",
+                    "escalated": True
+                }
             
             db.add_interaction(phone, "nutrition", response_text, "outgoing")
             whatsapp.send_text(phone, response_text)
