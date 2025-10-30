@@ -25,8 +25,10 @@ Sistema completo de inteligência artificial com dois agentes especializados par
    - Interface Streamlit em `app.py`
    - Métricas em tempo real
    - Gestão de clientes e leads
+   - **Conversas Completas** - Visualização completa de histórico com mensagens manuais
    - Histórico de interações
    - Área de testes dos agentes
+   - Funcionalidades administrativas: envio manual, escalação
 
 4. **Integração WhatsApp**
    - API: Z-API
@@ -54,8 +56,12 @@ Sistema completo de inteligência artificial com dois agentes especializados par
 ├── webhook_server.py        # Servidor webhook Flask
 ├── message_router.py        # Roteamento de mensagens
 ├── admin_actions.py         # Ações administrativas
-└── data/                    # Banco de dados JSON
-    └── database.json
+├── data/                    # Banco de dados JSON
+│   └── database.json
+└── tests/                   # Sistema de testes
+    ├── test_database_only.py    # Testes isolados rápidos
+    ├── test_escalation.py       # Testes de escalação
+    └── README.md                # Documentação de testes
 ```
 
 ### Fluxo de Dados
@@ -127,6 +133,18 @@ Base URL: `https://api.z-api.io/instances/{instance}/token/{token}`
   - Roteador previne respostas automáticas após escalação
   - Motivos de escalação registrados
   - Administrador pode escalar manualmente
+✅ **Dashboard - Conversas Completas (nova aba)**
+  - Visualização completa de histórico de todas conversas
+  - Layout duas colunas: seletor de contatos + conversa
+  - Diferenciação visual cliente/agente com timestamps
+  - Envio de mensagens manuais pelo dashboard
+  - Escalação e resolução manual de casos
+  - Indicadores visuais de status e agente responsável
+✅ **Sistema de Testes Isolados**
+  - Testes automatizados com database temporário
+  - test_database_only.py: 10/10 testes passando em < 1s
+  - Não polui dados de produção
+  - Heavy testing manual via dashboard (documentado)
 ✅ Métricas de conversão e receita
 ✅ Segurança: Credenciais em variáveis de ambiente
 
@@ -152,6 +170,14 @@ python webhook_server.py
 
 **Testar Agentes:**
 Use a aba "🧪 Testar Agentes" no dashboard para simular conversas.
+
+**Testes Automatizados:**
+```bash
+python tests/test_database_only.py  # Testes rápidos isolados (< 1s)
+python test_escalation.py           # Testes de escalação
+```
+
+Ver `tests/README.md` para guia completo de estratégia de testes.
 
 ### Data Storage
 
