@@ -3,6 +3,9 @@ from database import db
 from whatsapp_api import whatsapp
 from knowledge_base import ANAMNESIS_QUESTIONS, BRAZILIAN_FOODS_SAMPLE, get_all_anamnesis_questions
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 class NutritionAgent:
     def __init__(self):
@@ -114,6 +117,25 @@ Se o cliente apresentar condições médicas complexas, solicitações que fogem
                 if plan:
                     db.add_interaction(phone, "nutrition", plan, "outgoing")
                     whatsapp.send_text(phone, plan)
+                    
+                    # Generate and send PDF
+                    try:
+                        from agent_tools import agent_tools
+                        plan_data = {
+                            "plan_text": plan,
+                            "plan_id": db.get_client(phone).get("latest_plan_id", f"plan_{phone}")
+                        }
+                        pdf_result = agent_tools.generate_pdf_plan(phone, plan_data)
+                        if pdf_result.get("success"):
+                            # Send PDF via WhatsApp
+                            agent_tools.send_pdf_via_whatsapp(
+                                phone,
+                                pdf_result["file_path"],
+                                "Seu plano nutricional personalizado está pronto! 📄"
+                            )
+                    except Exception as e:
+                        logger.warning(f"PDF generation failed: {e}")
+                    
                     return {
                         "success": True,
                         "response": response_text,
