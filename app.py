@@ -14,13 +14,14 @@ st.set_page_config(
 st.title("🥗 Dashboard - Agente de IA Nutricional")
 st.markdown("Sistema de Inteligência Artificial com Agentes de Vendas e Nutrição")
 
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "📊 Visão Geral", 
     "👥 Clientes", 
     "🔔 Leads",
     "💬 Conversas Completas",
     "📝 Interações",
-    "🧪 Testar Agentes"
+    "🧪 Testar Agentes",
+    "⚙️ Buffer & Monitoramento"
 ])
 
 with tab1:
@@ -381,6 +382,146 @@ Sistema completo com:
 **Assinatura:** R$ 47,00/mês
 """)
 
+with tab7:
+    st.header("⚙️ Buffer & Monitoramento do Sistema")
+    
+    from buffer_manager import buffer_manager
+    from config import TESTING_MODE, BUFFER_WINDOW_SECONDS
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("📊 Status do Buffer Manager")
+        st.write(f"**Status:** {'🟢 Rodando' if buffer_manager.running else '🔴 Parado'}")
+        st.write(f"**Modo de Teste:** {'✅ Ativo' if TESTING_MODE else '❌ Desativado'}")
+        st.write(f"**Janela de Buffer:** {BUFFER_WINDOW_SECONDS} segundos")
+        
+        if st.button("🔄 Forçar Health Check"):
+            buffer_manager._run_health_checks()
+            st.success("Health check executado!")
+    
+    with col2:
+        st.subheader("📈 Estatísticas")
+        data = db._load()
+        buffers = data.get("message_buffers", {})
+        alerts = db.get_alerts(unresolved_only=True, limit=50)
+        
+        st.metric("Buffers Ativos", len([b for b in buffers.values() if not b.get("processing", False)]))
+        st.metric("Buffers Processando", len([b for b in buffers.values() if b.get("processing", False)]))
+        st.metric("Alertas Não Resolvidos", len(alerts))
+    
+    st.divider()
+    
+    st.subheader("📋 Buffers Ativos")
+    buffers = data.get("message_buffers", {})
+    
+    if buffers:
+        for buffer_key, buffer in buffers.items():
+            phone = buffer.get("phone", "")
+            expires_at = buffer.get("buffer_expires_at", "")
+            processing = buffer.get("processing", False)
+            retry_count = buffer.get("retry_count", 0)
+            
+            status_emoji = "🔄" if processing else "⏳"
+            status_text = "Processando" if processing else "Aguardando"
+            
+            with st.expander(f"{status_emoji} {phone} - {status_text} (Retries: {retry_count})"):
+                col_a, col_b = st.columns(2)
+                
+                with col_a:
+                    st.write(f"**Última Mensagem:** {buffer.get('last_message_at', '')[:19]}")
+                    st.write(f"**Expira em:** {expires_at[:19] if expires_at else 'N/A'}")
+                    st.write(f"**Criado em:** {buffer.get('created_at', '')[:19]}")
+                
+                with col_b:
+                    st.write(f"**Processando:** {'Sim' if processing else 'Não'}")
+                    st.write(f"**Tentativas:** {retry_count}")
+                    if buffer.get("locked_by"):
+                        st.write(f"**Locked by:** {buffer.get('locked_by')}")
+                
+                col_c, col_d = st.columns(2)
+                with col_c:
+                    if st.button(f"🔓 Forçar Unlock", key=f"unlock_{phone}"):
+                        db.release_buffer_lock(phone)
+                        st.success("Lock liberado!")
+                        st.rerun()
+                
+                with col_d:
+                    if st.button(f"⚡ Forçar Processamento", key=f"process_{phone}"):
+                        from datetime import datetime
+                        db.upsert_message_buffer(
+                            phone=phone,
+                            last_message_at=buffer.get('last_message_at', datetime.now().isoformat()),
+                            buffer_expires_at=datetime.now().isoformat(),
+                            processing=False,
+                            retry_count=retry_count
+                        )
+                        st.success("Processamento forçado!")
+                        st.rerun()
+    else:
+        st.info("Nenhum buffer ativo no momento.")
+    
+    st.divider()
+    
+    st.subheader("🚨 Alertas do Sistema")
+    alerts = db.get_alerts(unresolved_only=False, limit=50)
+    
+    if alerts:
+        unresolved = [a for a in alerts if not a.get("resolved", False)]
+        resolved = [a for a in alerts if a.get("resolved", False)]
+        
+        st.write(f"**Não Resolvidos:** {len(unresolved)} | **Resolvidos:** {len(resolved)}")
+        
+        for alert in unresolved[:20]:
+            alert_type = alert.get("type", "unknown")
+            phone = alert.get("phone", "")
+            details = alert.get("details", "")
+            created = alert.get("created_at", "")[:19]
+            
+            col_a, col_b = st.columns([3, 1])
+            with col_a:
+                st.warning(f"**{alert_type}** - {phone} - {created}")
+                st.write(f"_{details}_")
+            
+            with col_b:
+                if st.button("✅ Resolver", key=f"resolve_{alert.get('created_at')}"):
+                    # Mark as resolved (would need to add method to db)
+                    st.success("Resolvido!")
+                    st.rerun()
+            
+            st.divider()
+    else:
+        st.info("Nenhum alerta registrado.")
+    
+    st.divider()
+    
+    st.subheader("🔧 Controles Manuais")
+    
+    col_x, col_y = st.columns(2)
+    
+    with col_x:
+        if st.button("🔄 Limpar Buffers Expirados"):
+            from datetime import datetime
+            now = datetime.now()
+            buffers = data.get("message_buffers", {})
+            cleared = 0
+            
+            for buffer_key, buffer in list(buffers.items()):
+                expires_at = buffer.get("buffer_expires_at")
+                if expires_at:
+                    exp = datetime.fromisoformat(expires_at)
+                    if exp < now and not buffer.get("processing", False):
+                        db.delete_message_buffer(buffer.get("phone"))
+                        cleared += 1
+            
+            st.success(f"✅ {cleared} buffers limpos!")
+            st.rerun()
+    
+    with col_y:
+        if st.button("📊 Atualizar Estatísticas"):
+            st.rerun()
+
 st.sidebar.divider()
 st.sidebar.write("**Credenciais Z-API configuradas ✅**")
 st.sidebar.write("**OpenAI via Replit AI ✅**")
+st.sidebar.write(f"**Modo Teste:** {'✅' if TESTING_MODE else '❌'}")

@@ -62,6 +62,17 @@ class AIAgent:
             {"role": "system", "content": system_prompt}
         ]
         
+        # Inject approved responses for few-shot learning
+        if self.agent_type:
+            from database import db
+            approved = db.get_approved_responses(agent=self.agent_type, limit=3)
+            if approved:
+                examples = "\n\nExemplos de respostas aprovadas:\n"
+                for ex in approved:
+                    examples += f"\nContexto: {ex.get('context', '')[:200]}...\n"
+                    examples += f"Resposta aprovada: {ex.get('response', '')[:300]}...\n"
+                messages.append({"role": "system", "content": examples})
+        
         if context:
             messages.append({"role": "system", "content": f"Contexto adicional:\n{context}"})
         

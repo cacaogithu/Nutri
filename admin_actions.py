@@ -50,5 +50,68 @@ class AdminActions:
         whatsapp.send_text(phone, message)
         db.add_interaction(phone, "nutrition", message, "outgoing")
         return {"success": True, "message": "Anamnese reiniciada"}
+    
+    @staticmethod
+    def approve_response(phone: str, interaction_timestamp: str, agent: str, context: str = ""):
+        """
+        Approve an AI response for supervised learning.
+        
+        Args:
+            phone: Phone number
+            interaction_timestamp: Timestamp of the interaction to approve
+            agent: Agent type (sales, nutrition)
+            context: Optional context about why this is a good response
+        
+        Returns:
+            Dict with success status
+        """
+        try:
+            # Get the interaction
+            interactions = db.get_client_interactions(phone, limit=1000)
+            interaction = None
+            
+            for i in interactions:
+                if i.get("timestamp") == interaction_timestamp and i.get("direction") == "outgoing":
+                    interaction = i
+                    break
+            
+            if not interaction:
+                return {
+                    "success": False,
+                    "error": "Interaction not found"
+                }
+            
+            # Get conversation context
+            if not context:
+                # Build context from recent interactions
+                recent = [i for i in interactions if i.get("timestamp") <= interaction_timestamp][-5:]
+                context = "\n".join([
+                    f"{'User' if i['direction'] == 'incoming' else 'Agent'}: {i.get('message', '')[:200]}"
+                    for i in recent
+                ])
+            
+            # Save approved response
+            db.save_approved_response(
+                phone=phone,
+                context=context,
+                response=interaction.get("message", ""),
+                agent=agent
+            )
+            
+            return {
+                "success": True,
+                "message": "Response approved and saved for learning"
+            }
+            
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e)
+            }
+    
+    @staticmethod
+    def get_approved_responses(agent: str = None, limit: int = 50):
+        """Get approved responses for learning."""
+        return db.get_approved_responses(agent=agent, limit=limit)
 
 admin = AdminActions()
